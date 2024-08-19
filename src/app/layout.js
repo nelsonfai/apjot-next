@@ -11,15 +11,14 @@ const openSans = Open_Sans({ subsets: ["latin"] });
 export const metadata = {
   title: "Apjot",
   description: "A public Journal of Thoughts",
-  icons: {
-    icon: "/favicon.jpeg",
-  },
+
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={openSans.className}>
+      <link rel="icon" href="/favicon.png" sizes="any" />
         <UserProvider>
           <HighlightsProvider>
             <Header />

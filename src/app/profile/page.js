@@ -33,7 +33,7 @@ const ProfilePage = () => {
     }
   }, [user, loading, router]);
 
-  if (loading) return <div style={{ textAlign: "center", marginTop: "2rem" }}>Loading...</div>;
+  if (loading) return <div style={{ textAlign: "center", marginTop: "2rem",height:'50vh',display:'flex',justifyContent:'center',alignItems:'center' }}> <span> Loading...</span> </div>;
   if (!user) return null;
 
   const handleNameUpdate = async () => {
