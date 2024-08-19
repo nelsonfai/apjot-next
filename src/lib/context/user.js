@@ -88,7 +88,7 @@ export function UserProvider(props) {
 
   async function initiatePasswordRecovery(email) {
     try {
-      await account.createRecovery(email, 'http://localhost:3000.com');
+      await account.createRecovery(email, 'http://apjot.blog/auth/pasword-recovery');
       return true;
     } catch (error) {
       console.error("Error initiating password recovery:", error);

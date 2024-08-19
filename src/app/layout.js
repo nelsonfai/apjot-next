@@ -5,8 +5,7 @@ import { UserProvider } from "@/lib/context/user";
 import './globals.css';
 import { HighlightsProvider } from '@/lib/context/highlight';
 import CookiePolicy from "@/components/cookiePolicy";
-import Head from 'next/head';
-
+import { GoogleAnalytics } from '@next/third-parties/google'
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
@@ -20,17 +19,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=G-BWV7N0MFWX`}></script>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-BWV7N0MFWX');
-          `,
-        }} />
-      </Head>
       <body className={openSans.className}>
         <UserProvider>
           <HighlightsProvider>
@@ -40,9 +28,8 @@ export default function RootLayout({ children }) {
             <Footer />
           </HighlightsProvider>
         </UserProvider>
-
-
       </body>
+      <GoogleAnalytics gaId="G-BWV7N0MFWX" />
     </html>
   );
 }

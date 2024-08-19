@@ -153,6 +153,9 @@ const ProfilePage = () => {
       marginTop: "1rem",
       fontWeight: "bold",
       color: messageType === "success" ? "green" : messageType === "error" ? "red" : "black",
+      backgroundColor :messageType === "success" ? "#e0ffe0" : messageType === "error" ? "#ffe0e0" : "transparent",
+      padding: '0.5rem',
+      borderRadius: '4px',
     }
   };
 

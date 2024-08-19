@@ -1,10 +1,8 @@
-
-
 "use client";
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/lib/context/user";  // Update this import path as needed
+import { useUser } from "@/lib/context/user"; // Update this import path as needed
 
 const PasswordRecoveryConfirmationPage = () => {
   const router = useRouter();
@@ -12,6 +10,7 @@ const PasswordRecoveryConfirmationPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(""); // New state for success message
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -43,13 +42,16 @@ const PasswordRecoveryConfirmationPage = () => {
     try {
       const success = await confirmPasswordRecovery(userId, secret, password);
       if (success) {
-        router.push("/"); // Redirect to the home page
+        setSuccess("Password successfully reset! Please log in.");
+        setError(""); // Clear any previous errors
       } else {
         setError("Password recovery confirmation failed.");
+        setSuccess(""); // Clear any previous success messages
       }
     } catch (error) {
       console.error("Error confirming password recovery:", error);
       setError("An error occurred while confirming password recovery.");
+      setSuccess(""); // Clear any previous success messages
     } finally {
       setLoading(false);
     }
@@ -62,7 +64,6 @@ const PasswordRecoveryConfirmationPage = () => {
       margin: '0 auto',
       backgroundColor: '#fff',
       borderRadius: '8px',
-
     },
     heading: {
       textAlign: 'center',
@@ -106,7 +107,10 @@ const PasswordRecoveryConfirmationPage = () => {
       textAlign: 'center',
       marginTop: '1rem',
       fontWeight: 'bold',
-      color: error ? 'red' : 'black',
+      color: error ? 'red' : success ? 'green' : 'black',
+      backgroundColor: success ? '#e0ffe0' : '#ffe0e0', // Green background for success message
+      padding: '0.5rem',
+      borderRadius: '4px',
     },
   };
 
@@ -139,6 +143,7 @@ const PasswordRecoveryConfirmationPage = () => {
           />
         </div>
         {error && <div style={styles.message}>{error}</div>}
+        {success && <div style={styles.message}>{success}</div>}
         <button
           type="button"
           onClick={handleConfirmPasswordRecovery}
