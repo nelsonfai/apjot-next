@@ -5,19 +5,29 @@ import { useUser } from "@/lib/context/user";
 import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
-  const { current: user, updateName, updateEmail, changePassword, verifyEmail, loading } = useUser();
-  const [name, setName] = useState(user?.name || "");
-  const [email, setEmail] = useState(user?.email || "");
+  const { current: user, updateName, updateEmail, changePassword, loading } = useUser();
+  const [name, setName] = useState(""); // Initialize with empty string
+  const [email, setEmail] = useState(""); // Initialize with empty string
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [isNameEditing, setIsNameEditing] = useState(false);
   const [isEmailEditing, setIsEmailEditing] = useState(false);
   const [isPasswordEditing, setIsPasswordEditing] = useState(false);
-  const [message, setMessage] = useState(""); // For success/error messages
+  const [message, setMessage] = useState("");
   const [loadingState, setLoadingState] = useState({ name: false, email: false, password: false });
+  const [messageType, setMessageType] = useState("");
   const router = useRouter();
 
   useEffect(() => {
+    // Set initial values from user data
+    if (user) {
+      setName(user.name || "");
+      setEmail(user.email || "");
+    }
+  }, [user]);
+
+  useEffect(() => {
+    // Redirect to login if user is not authenticated
     if (!loading && !user) {
       router.push("/auth/login?next=/profile");
     }
@@ -101,8 +111,6 @@ const ProfilePage = () => {
     }
   };
 
-  const [messageType, setMessageType] = useState(""); // To track message type (success or error)
-
   const styles = {
     profileContainer: {
       padding: "2rem",
@@ -153,7 +161,7 @@ const ProfilePage = () => {
       marginTop: "1rem",
       fontWeight: "bold",
       color: messageType === "success" ? "green" : messageType === "error" ? "red" : "black",
-      backgroundColor :messageType === "success" ? "#e0ffe0" : messageType === "error" ? "#ffe0e0" : "transparent",
+      backgroundColor : messageType === "success" ? "#e0ffe0" : messageType === "error" ? "#ffe0e0" : "transparent",
       padding: '0.5rem',
       borderRadius: '4px',
     }

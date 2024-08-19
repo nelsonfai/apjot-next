@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { account, ID } from "../appwrite"; // Use your Appwrite configuration here
+import { account, ID } from "../appwrite"; // Import your Appwrite configuration here
 import PropTypes from "prop-types";
 
 const UserContext = createContext();
@@ -12,6 +12,7 @@ export function useUser() {
 
 export function UserProvider(props) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // New loading state for initialization
 
   async function login(email, password) {
     try {
@@ -113,18 +114,21 @@ export function UserProvider(props) {
     } catch (error) {
       console.error("Initialization error:", error);
       setUser(null);
+    } finally {
+      setLoading(false); // Mark loading as false when done
     }
   }
 
   useEffect(() => {
     init();
-    console.log('Initializing user context...');
+    console.log("Initializing user context...");
   }, []);
 
   return (
     <UserContext.Provider
       value={{
         current: user,
+        loading, // Expose loading state
         login,
         logout,
         register,
