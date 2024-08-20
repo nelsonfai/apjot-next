@@ -13,7 +13,7 @@ function FilterSection({ handleFilter, getAll, search }) {
     {value:"bbr",label:"Biblical Reflections"},
 
     { value: "mwb", label: "Mindfulness and Well being" },
-    { value: "bks", label: "Book Reviews" },
+    { value: "bks", label: "Book Summary" },
   ];
 
   const handleCheckboxChange = (value) => {

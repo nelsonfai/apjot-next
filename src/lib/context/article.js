@@ -20,7 +20,7 @@ export async function getAllDocuments(last) {
     let query = [
       Query.equal("publish", true),
       Query.orderDesc("$createdAt"),
-      Query.select(["slug", "image", "title", "$id"]),
+      Query.select(["slug", "image", "title", "meta_description","tagline","created" ,"$id"]),
     ];
 
     // If last cursor is provided, add it to the query
