@@ -58,8 +58,8 @@ const SubscribePopup = ({ isOpen, onClose }) => {
           Join Our Weekly Newsletter
         </h3>
         <p style={{ marginBottom: "1rem", color: "#555" }}>
-          Ignite Your Mind with Apjot's Weekly Newsletter: Explore Deep
-          Insights, Thought-Provoking Content, and Exclusive Updates
+        Never miss out on the latest updates, exclusive content, and special
+          notifications! Join our newsletter to stay informed and connected.
         </p>
         <form onSubmit={handleFormSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <input
@@ -105,6 +105,7 @@ const SubscribePopup = ({ isOpen, onClose }) => {
             marginTop: "1rem",
             backgroundColor: "transparent",
             border: "none",
+            
             color: "#000",
             fontSize: "large",
             cursor: "pointer",

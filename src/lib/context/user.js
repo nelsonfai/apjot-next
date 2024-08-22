@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { account, ID } from "../appwrite"; // Import your Appwrite configuration here
+import { account, ID } from "../appwrite"; 
 import PropTypes from "prop-types";
 
 const UserContext = createContext();
@@ -12,7 +12,7 @@ export function useUser() {
 
 export function UserProvider(props) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // New loading state for initialization
+  const [loading, setLoading] = useState(true);
 
   async function login(email, password) {
     try {
@@ -40,8 +40,16 @@ export function UserProvider(props) {
     try {
       await account.create(ID.unique(), email, password, name);
       await login(email, password);
+      return { success: true };
     } catch (error) {
       console.error("Registration error:", error);
+      let errorMessage = "Failed to register. Please try again later.";
+      if (error.code === 400) {
+        errorMessage = "Invalid email or password.";
+      } else if (error.code === 409) {
+        errorMessage = "Email already exists. Please use a different email.";
+      }
+      return { success: false, message: errorMessage };
     }
   }
 
@@ -115,7 +123,7 @@ export function UserProvider(props) {
       console.error("Initialization error:", error);
       setUser(null);
     } finally {
-      setLoading(false); // Mark loading as false when done
+      setLoading(false);
     }
   }
 
@@ -128,7 +136,7 @@ export function UserProvider(props) {
     <UserContext.Provider
       value={{
         current: user,
-        loading, // Expose loading state
+        loading,
         login,
         logout,
         register,

@@ -39,11 +39,19 @@ li {
   display: none;
 }
 
-input {
+/* Applies to all input elements except those with type="text" */
+input:not([type="checkbox"]) {
   -webkit-appearance: none; /* Prevent default iOS styling */
   border-radius: 0; /* Remove border-radius */
   outline: none; /* Remove highlight on focus */
 }
+
+/* Specific styles for checkboxes */
+input[type="checkbox"] {
+  accent-color: black;
+   /* Sets the color of the checkbox when checked */
+}
+[type="text"]
 
 /* General ENd ------------------*/
 
