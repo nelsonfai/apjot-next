@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useUser } from "@/lib/context/user"; // Import the useUser hook
 import Link from "next/link";
-
+import Image from "next/image";
 const Header = () => {
   const { current: user, logout } = useUser(); // Destructure the user from the useUser hook
   const [isOpen, setIsOpen] = useState(false); // State to track whether the navigation is open or closed
@@ -36,14 +36,24 @@ const Header = () => {
         <div className="hamburger-lines">
           {!isOpen && (
             <button className="hamburger" onClick={toggleNav}>
-              <i className="fa-solid fa-bars"></i>
+              <Image
+                src="/hamburger.svg"
+                width={30}
+                height={30}
+                alt="Hamburger"
+              />
             </button>
           )}
 
           {/* Close button is only visible when the navigation is open */}
           {isOpen && (
             <button className="hamburger" onClick={toggleNav}>
-              <i className="fa-solid fa-xmark"></i>
+              <Image
+                src="/close.svg"
+                width={30}
+                height={30}
+                alt="Hamburger"
+              />
             </button>
           )}
         </div>
