@@ -69,6 +69,7 @@ export async function getAllFeatured() {
   try {
     const response = await databases.listDocuments(databaseId, collectionId, [
       Query.equal("publish", true),
+      Query.orderDesc("$createdAt"),
       Query.select(["slug", "image", "title"]),
       Query.limit(3),
     ]);

@@ -99,7 +99,8 @@ const Highlight = ({ articleId, highlights, setHighlights, showHighlights, setSh
               marginTop: '1rem',
               padding: '8px 15px',
               border: 0,
-              backgroundColor: 'whitesmoke',
+              backgroundColor: 'black',
+              color:'white',
               cursor: 'pointer',
               borderRadius: '4px',
             }}>
