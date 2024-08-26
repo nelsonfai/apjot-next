@@ -35,7 +35,7 @@ const ArticleDetails = async ({ params }) => {
   return (
     <>
       {/* Metadata Configuration */}
-      <title>{data?.title || "Article Title Here"}</title>
+      <title>{data?.title || "Apjot Blog Post"}</title>
       <meta name="description" content={data?.meta_description || "Default description"} />
       <meta name="keywords" content={data?.meta_keywords?.join(", ") || ""} />
 

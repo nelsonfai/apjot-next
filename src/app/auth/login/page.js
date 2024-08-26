@@ -57,6 +57,9 @@ export default function Login() {
   };
 
   return (
+    <>
+   
+    <title>{"Apjot - Log in "}</title>
     <section
       style={{
         padding: "2rem",
@@ -125,5 +128,6 @@ export default function Login() {
         </p>
       </form>
     </section>
+    </>
   );
 }

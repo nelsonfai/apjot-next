@@ -6,6 +6,8 @@ function About() {
 
   const user = useUser();
   return (
+    <>
+    <title>{"Apjot - About Us "}</title>
     <div>
     <div className="about-container">
         <div className="about">
@@ -48,6 +50,7 @@ function About() {
         <strong> Self-growth through Self-Exploration</strong>{" "}
       </p>
     </div>
+    </>
   );
 }
 

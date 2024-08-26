@@ -48,6 +48,8 @@ function Home() {
   }, []); // Added dependency array
 
   return (
+    <> 
+    <title>{"Apjot - Home"}</title>
     <div>
       <div>
         <style>
@@ -217,6 +219,7 @@ function Home() {
       <SubscribePopup isOpen={isPopupOpen} onClose={closePopup} />
 
     </div>
+    </>
   );
 }
 

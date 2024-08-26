@@ -17,7 +17,10 @@ export default async function Blog() {
   }
 
   return (
-    
-    <BlogContent initialData={initialData} lastId={lastId}  className="blogContent"/>
+    <>
+        <title>{"Apjot - Blog Posts"}</title>
+        <BlogContent initialData={initialData} lastId={lastId}  className="blogContent"/>
+
+    </>
   );
 }

@@ -115,6 +115,10 @@ const PasswordRecoveryConfirmationPage = () => {
   };
 
   return (
+    <>
+    
+    <title>{"Apjot - Confirm Password "}</title>
+
     <div style={styles.container}>
       <h2 style={styles.heading}>Password Recovery Confirmation</h2>
       <form onSubmit={(e) => e.preventDefault()}>
@@ -155,6 +159,7 @@ const PasswordRecoveryConfirmationPage = () => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

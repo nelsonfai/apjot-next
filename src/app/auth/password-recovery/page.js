@@ -85,6 +85,9 @@ const PasswordRecoveryInitiationPage = () => {
   };
 
   return (
+    <>
+    <title>{"Apjot - Password Recovery "}</title>
+
     <div style={styles.container}>
       <h2 style={styles.heading}>Password Recovery Initiation</h2>
       <input
@@ -106,6 +109,7 @@ const PasswordRecoveryInitiationPage = () => {
       </button>
       <div style={styles.message}>{message}</div>
     </div>
+    </>
   );
 };
 

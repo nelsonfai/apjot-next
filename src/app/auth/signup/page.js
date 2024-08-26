@@ -64,6 +64,9 @@ export default function Signup() {
   };
 
   return (
+    <>
+    <title>{"Apjot - Sign Up "}</title>
+   
     <section
       style={{
         padding: "2rem",
@@ -166,5 +169,6 @@ export default function Signup() {
         </p>
       </form>
     </section>
+    </>
   );
 }
