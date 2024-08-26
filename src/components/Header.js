@@ -23,8 +23,8 @@ const Header = () => {
           <a href="/">Apjot</a>
         </div>
         <div className={`navlinks ${isOpen ? "open" : ""}`}>
-          <Link href="/">Home</Link>
-          <Link href="/blog/">Blog</Link>
+          <Link href="/home">Home</Link>
+          <Link href="/">Blog</Link>
           <Link href="/about/">About</Link>
           {user && <Link href="/profile/">Profile</Link>}
          { user ? (

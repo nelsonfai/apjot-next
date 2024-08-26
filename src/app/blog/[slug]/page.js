@@ -5,7 +5,7 @@ import ArticleCard from '@/components/ArticleCard';
 import { getDocumentById, getRelated } from '@/lib/context/article';
 import LikeButton from '@/components/LikeButton';
 import CommentsSection from '@/components/CommentsSection';
-import "../blog.css";
+import "@/styles/blog.css";
 import CommentCounter from '@/components/CommentCounter';
 import { HighlightButton } from '@/components/Highlights';
 
