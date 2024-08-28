@@ -1,26 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FormattedText from '@/components/FormattedText';
 import ArticleCard from '@/components/ArticleCard';
-import { getDocumentById, getRelated } from '@/lib/context/article';
 import LikeButton from '@/components/LikeButton';
 import CommentsSection from '@/components/CommentsSection';
-import "@/styles/blog.css";
 import CommentCounter from '@/components/CommentCounter';
 import { HighlightButton } from '@/components/Highlights';
-
-export async function generateStaticParams() {
-  const articles = await getRelated(); 
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
-}
-
-export async function getArticleData(slug) {
-  const data = await getDocumentById(slug);
-  const relatedArticles = await getRelated();
-  return { data, relatedArticles };
-}
+import "@/styles/blog.css";
 
 // Format date for display
 const formatDate = (date) => {
@@ -29,12 +14,26 @@ const formatDate = (date) => {
 
 const ArticleDetails = async ({ params }) => {
   const { slug } = params;
-  const { data, relatedArticles } = await getArticleData(slug);
+  const baseUrl = 'https://www.apjot.blog/'
+  //const baseUrl = 'http://localhost:3000/'
+  // Fetch article data and related articles with no cache
+  const articleResponse = await fetch(`${baseUrl}api/article/${slug}`, {
+    cache: 'no-store'
+  });
+  const relatedResponse = await fetch(`${baseUrl}api/article/related`, {
+    cache: 'no-store'
+  });
 
-  // Dynamically update metadata
+  const data = await articleResponse.json();
+  const relatedArticles = await relatedResponse.json();
+
+  // Handle error if the article is not found
+  if (!data || articleResponse.status !== 200) {
+    return <div>Article not found</div>;
+  }
+
   return (
     <>
-      {/* Metadata Configuration */}
       <title>{data?.title || "Apjot Blog Post"}</title>
       <meta name="description" content={data?.meta_description || "Default description"} />
       <meta name="keywords" content={data?.meta_keywords?.join(", ") || ""} />
@@ -86,18 +85,12 @@ const ArticleDetails = async ({ params }) => {
         <CommentsSection articleId={data.$id} initialComments={data?.comments} />
         <div className="hideScroll" style={{ display: 'flex', gap: 5, overflowX: 'scroll', marginBlock: 10 }}>
           {relatedArticles && relatedArticles.map((article) => (
-            <ArticleCard article={article} width="250px" height="150px" fontsize="16px" />
+            <ArticleCard key={article.slug} article={article} width="250px" height="150px" fontsize="16px" />
           ))}
         </div>
       </div>
     </>
   );
-};
-
-ArticleDetails.propTypes = {
-  params: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default ArticleDetails;
