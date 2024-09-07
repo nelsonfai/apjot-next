@@ -1,31 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { initiateSubscribe } from "../lib/context/article";
+import React from "react";
 
 const SubscribePopup = ({ isOpen, onClose }) => {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [color, setColor] = useState("black");
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    setEmail("");
-    try {
-      const response = await initiateSubscribe(email);
-      setMessage(response.message);
-      setColor(response.color);
-    } catch (error) {
-      setMessage("Something went wrong");
-      setColor("red");
-      console.error("Error:", error);
-    }
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
   if (!isOpen) return null;
 
   return (
@@ -58,54 +35,32 @@ const SubscribePopup = ({ isOpen, onClose }) => {
           Join Our Weekly Newsletter
         </h3>
         <p style={{ marginBottom: "1rem", color: "#555" }}>
-        Never miss out on the latest updates, exclusive content, and special
+          Never miss out on the latest updates, exclusive content, and special
           notifications! Join our newsletter to stay informed and connected.
         </p>
-        <form onSubmit={handleFormSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <input
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-            placeholder="Enter email address"
-            style={{
-              padding: "1rem",
-              width: "100%",
-              fontSize: "large",
-              borderRadius: "4px",
-              border: "1px solid #ddd",
-            }}
-            required
-          />
-          <input
-            type="submit"
-            value="Subscribe"
-            style={{
-              padding: "1rem",
-              backgroundColor: "black",
-              color: "white",
-              cursor: "pointer",
-              borderRadius: "4px",
-              border: "none",
-              fontSize: "large",
-            }}
-          />
-        </form>
-        <p
+        
+        {/* Embed the slim iframe */}
+        <iframe 
+          src="https://embeds.beehiiv.com/a909a765-6b1e-4e28-8aee-aa0e4431f740?slim=true" 
+          data-test-id="beehiiv-embed" 
+          width="100%" 
+          height="320" 
+          frameBorder="0" 
+          scrolling="no" 
           style={{
-            marginTop: "1rem",
-            color: `${color}`,
-            minHeight: "20px",
+            borderRadius: "4px", 
+            border: "2px solid #e5e7eb", 
+            margin: "0", 
+            backgroundColor: "transparent",
           }}
-        >
-          {message}
-        </p>
+        ></iframe>
+
         <button
           onClick={onClose}
           style={{
             marginTop: "1rem",
             backgroundColor: "transparent",
             border: "none",
-            
             color: "#000",
             fontSize: "large",
             cursor: "pointer",
