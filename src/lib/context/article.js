@@ -167,13 +167,14 @@ export async function getDocumentById(slug) {
 
 // Function to add a new document to a collection
 export async function executeFunction(documentId) {
+  console.log('Like function called')
   try {
     // Make GET request to the specified link with the document ID
     const response = await fetch(
       `https://65e8db8145e0ca93d318.appwrite.global/?documentId=${documentId}`,
       { mode: "no-cors" },
     );
-    console.log("Response status:", response.status); // Will log
+    console.log("Response status:", response); // Will log
     return true;
   } catch (error) {
     console.error("An error occurred while processing the like action:", error);

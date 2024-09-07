@@ -6,6 +6,7 @@ import './globals.css';
 import { HighlightsProvider } from '@/lib/context/highlight';
 import CookiePolicy from "@/components/cookiePolicy";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { CommentCountProvider } from "@/lib/context/commentcount";
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
@@ -20,12 +21,14 @@ export default function RootLayout({ children }) {
       <body className={openSans.className}>
       <link rel="icon" href="/favicon.png" sizes="any" />
         <UserProvider>
+          <CommentCountProvider>
           <HighlightsProvider>
             <Header />
             {children}
             <CookiePolicy/>
             <Footer />
           </HighlightsProvider>
+          </CommentCountProvider>
         </UserProvider>
       </body>
       <GoogleAnalytics gaId="G-BWV7N0MFWX" />

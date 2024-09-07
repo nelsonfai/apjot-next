@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { executeFunction } from "@/lib/context/article";
-
+import { useCommentCount } from '@/lib/context/commentcount';
 const CommentCounter = ({ initialCount, articleId }) => {
   const [ count, setCount] = useState(initialCount);
+  const {commentcount} = useCommentCount()
+
 
 
   return (
@@ -12,7 +13,7 @@ const CommentCounter = ({ initialCount, articleId }) => {
       <img src="/bubble.png" alt="Comment" />
       <span style={{ fontSize: "16px", color: "black" }}>
         {" "}
-        {count}
+        {commentcount}
       </span>
     </button>
   );

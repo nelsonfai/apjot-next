@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { createComment } from '@/lib/context/article';
 import { useUser } from '@/lib/context/user';
-
+import { useCommentCount } from '@/lib/context/commentcount';
 const CommentsSection = ({ articleId, initialComments }) => {
   const [comments, setComments] = useState(initialComments || []);
   const [message, setMessage] = useState('');
@@ -15,9 +15,11 @@ const CommentsSection = ({ articleId, initialComments }) => {
   const [errors, setErrors] = useState({ name: '', message: '' });
   const [replyErrors, setReplyErrors] = useState({ name: '', message: '' });
   const { current: user } = useUser();
+  const {setCommentCount} = useCommentCount()
 
   useEffect(() => {
     setComments(initialComments);
+    setCommentCount(initialComments?.length || 0)
   }, [articleId, initialComments]);
 
   useEffect(() => {
@@ -66,6 +68,7 @@ const CommentsSection = ({ articleId, initialComments }) => {
 
       // Update state with the new comment
       const updatedComments = [...comments, newComment];
+      setCommentCount(updatedComments?.length || 0)
       arrangeComments(updatedComments);
 
       if (isReply) {

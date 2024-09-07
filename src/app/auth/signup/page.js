@@ -55,7 +55,7 @@ export default function Signup() {
         const newsletterResponse = await initiateSubscribe(email);
         
       }
-      router.push("/blog");
+      router.push("/");
     } else {
       setError(result.message);
     }
