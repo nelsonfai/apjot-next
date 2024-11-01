@@ -32,7 +32,7 @@ function BlogContent({ initialData, lastId }) {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const [articlesPerPage, setArticlesPerPage] = useState(6); // Number of articles per page
+  const [articlesPerPage, setArticlesPerPage] = useState(9); // Number of articles per page
   const [totalPages, setTotalPages] = useState(
     Math.ceil((initialData?.length || 0) / articlesPerPage)
   );
