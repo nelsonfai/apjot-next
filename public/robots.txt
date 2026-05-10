@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://apjot.blog/sitemap.xml
+Sitemap: https://apjot.site/sitemap.xml

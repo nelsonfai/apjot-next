@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { initiateSubscribe } from "../lib/context/article";
 
+const SUBSCRIBE_POPUP_ENABLED = false;
+
 const SubscribePopup = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -26,7 +28,7 @@ const SubscribePopup = ({ isOpen, onClose }) => {
     setEmail(event.target.value);
   };
 
-  if (!isOpen) return null;
+  if (!SUBSCRIBE_POPUP_ENABLED || !isOpen) return null;
 
   return (
     <div

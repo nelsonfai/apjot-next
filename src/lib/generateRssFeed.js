@@ -10,7 +10,7 @@ export function generateRssFeed(posts) {
       return `
       <item>
         <title>${post.title}</title>
-        <link>https://apjot.blog/blog/${post.slug}</link>
+        <link>https://apjot.site/blog/${post.slug}</link>
         <pubDate>${new Date(post.created).toUTCString()}</pubDate>
         <description><![CDATA[${post.meta_description} - ${post.tagline}]]></description>
         </item>`;
@@ -21,7 +21,7 @@ export function generateRssFeed(posts) {
     <rss version="2.0">
       <channel>
         <title>Apjot</title>
-        <link>https://apjot.blog</link>
+        <link>https://apjot.site</link>
         <description>A public journal of thoughts</description>
         <language>en</language>
         ${rssItemsXml}

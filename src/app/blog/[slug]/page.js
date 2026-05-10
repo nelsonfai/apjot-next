@@ -1,4 +1,5 @@
 import React from 'react';
+import { headers } from 'next/headers';
 import FormattedText from '@/components/FormattedText';
 import ArticleCard from '@/components/ArticleCard';
 import LikeButton from '@/components/LikeButton';
@@ -12,20 +13,54 @@ const formatDate = (date) => {
   return new Date(date).toLocaleDateString();
 };
 
+const getBaseUrl = () => {
+  const headerList = headers();
+  const host = headerList.get('x-forwarded-host') || headerList.get('host');
+  const proto = headerList.get('x-forwarded-proto') || 'http';
+
+  if (host) {
+    return `${proto}://${host}`;
+  }
+
+  return process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+};
+
+const safeJson = async (response) => {
+  const contentType = response.headers.get('content-type') || '';
+
+  if (!contentType.includes('application/json')) {
+    const body = await response.text();
+    throw new Error(`Expected JSON but got: ${body.slice(0, 120)}`);
+  }
+
+  return response.json();
+};
+
 const ArticleDetails = async ({ params }) => {
   const { slug } = params;
-  const baseUrl = 'https://www.apjot.blog/'
-  //const baseUrl = 'http://localhost:3000/'
-  // Fetch article data and related articles with no cache
-  const articleResponse = await fetch(`${baseUrl}api/article/${slug}`, {
+  const baseUrl = getBaseUrl();
+
+  const articleResponse = await fetch(`${baseUrl}/api/article/${slug}`, {
     cache: 'no-store'
   });
-  const relatedResponse = await fetch(`${baseUrl}api/article/related`, {
+  const relatedResponse = await fetch(`${baseUrl}/api/article/related`, {
     cache: 'no-store'
   });
 
-  const data = await articleResponse.json();
-  const relatedArticles = await relatedResponse.json();
+  let data = null;
+  let relatedArticles = [];
+
+  try {
+    data = await safeJson(articleResponse);
+  } catch (error) {
+    console.error('Failed to parse article response as JSON:', error);
+  }
+
+  try {
+    relatedArticles = await safeJson(relatedResponse);
+  } catch (error) {
+    console.error('Failed to parse related response as JSON:', error);
+  }
 
   // Handle error if the article is not found
   if (!data || articleResponse.status !== 200) {
@@ -84,7 +119,7 @@ const ArticleDetails = async ({ params }) => {
         </p>
         <CommentsSection articleId={data.$id} initialComments={data?.comments} />
         <div className="hideScroll" style={{ display: 'flex', gap: 5, overflowX: 'scroll', marginBlock: 10 }}>
-          {relatedArticles && relatedArticles.map((article) => (
+          {Array.isArray(relatedArticles) && relatedArticles.map((article) => (
             <ArticleCard key={article.slug} article={article} width="250px" height="150px" fontsize="16px" />
           ))}
         </div>
